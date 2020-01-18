@@ -31,7 +31,14 @@ class Item(Resource):
         return item, 201
 
 
+class ItemsList(Resource):
+    def get(self):
+        return {'items': items}
+
+
 # http://127.0.0.1:5000/estudante/steven
 api.add_resource(Item, '/item/<string:nome>')
+api.add_resource(ItemsList, '/items')
 
-app.run(port=5000)
+
+app.run(port=5000, debug=True)
