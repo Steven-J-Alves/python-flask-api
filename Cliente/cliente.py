@@ -4,43 +4,41 @@ import requests
 import json
 import sys
 
-url = 'http://127.0.0.1:5000/item/porta'
 header = {
     'user-agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0",
     'Content-type': 'application/json'
 }
 
-try:
-    requisicao = requests.get(url, headers=header)
-except Exception as err:
-    print('requisicao deu erro: ', err)
-
-requisicao_json = json.dumps(json.loads(requisicao.text), indent=4)
-print(requisicao_json)
-
 
 def Main():
     while True:
         print("Digite 'Control + C' para sair do programa")
+        print("")
         PrintMenu()
         escolha = input("Escolha: ")
         if escolha == "1":
             getItems()
             break
         elif escolha == "2":
-            getItem()
+            nome_item = input("Nome do item a recuperar: ")
+            getItem(nome_item)
             break
         elif escolha == "3":
-            postItem()
+            nome_item = input("Nome do item a enviar: ")
+            preco_item = float(input("Preco do item a enviar: "))
+            postItem(nome_item, preco_item)
             break
         elif escolha == "4":
-            deleteItem()
+            nome_item = input("Nome do item a deletar: ")
+            deleteItem(nome_item)
             break
         elif escolha == "5":
-            putItem()
+            nome_item = input("Nome do item a alterar/criar: ")
+            putItem(nome_item)
             break
         else:
             print("Escolha inválida")
+            print("-"*50)
 
 
 def PrintMenu():
@@ -51,27 +49,56 @@ def PrintMenu():
     print("6 - Para Atualizar ou cria um item (se nao existir)")
 
 
-def requisicao():
-    pass
-
-
 def getItems():
+    # print("-"*50)
+    print("[+] Para obtendo todos os items...")
+    url = 'http://127.0.0.1:5000/items/'
+    try:
+        requisicao = requests.get(url, headers=header)
+    except Exception as err:
+        print('[-] Erro Na Requisição: ', err)
+
+    requisicao_json = json.dumps(json.loads(requisicao.text), indent=4)
+    print("")
+    print(requisicao_json)
+
+
+def getItem(nome_item):
+    print("[+] Obtendo item...")
+    url = 'http://127.0.0.1:5000/item/'+nome_item
+    try:
+        requisicao = requests.get(url, headers=header)
+    except Exception as err:
+        print('[-] Erro Na Requisição: ', err)
+
+    requisicao_json = json.dumps(json.loads(requisicao.text), indent=4)
+    print("")
+    print(requisicao_json)
+
+
+def postItem(nome_item, preco_item):
+    print("[+] Enviando item...")
+    url = 'http://127.0.0.1:5000/item/'+nome_item
+    data ={"preco" : preco_item}
+    try:
+        requisicao = requests.post(url, data=json.dumps(data), headers=header)
+    except Exception as err:
+        print('[-] Erro Na Requisição: ', err)
+
+    requisicao_json = json.dumps(json.loads(requisicao.text), indent=4)
+    print("")
+    print(requisicao_json)
+
+
+def deleteItem(self):
+    print("")
+    print("[+] Deletando item...")
     pass
 
 
-def getItem():
-    pass
-
-
-def postItem():
-    pass
-
-
-def deleteItem():
-    pass
-
-
-def putItem():
+def putItem(self):
+    print("")
+    print("[+] Alterando/criando item...")
     pass
 
 

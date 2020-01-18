@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 
 
 app = Flask(__name__)
@@ -9,6 +9,13 @@ items = []
 
 
 class Item(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('preco',
+                        type=float,
+                        required=True,
+                        help="Nao pode ficar em branco"
+                        )
+
     def get(self, nome):
         for item in items:
             if item['nome'] == nome:
@@ -16,7 +23,10 @@ class Item(Resource):
         return {'item': None}, 404
 
     def post(self, nome):
-        item = {'nome': nome, 'preco': 12.00}
+
+        data = Item.parser.parse_args()
+
+        item = {'nome': nome, 'preco': data['preco']}
         items.append(item)
         return item, 201
 
