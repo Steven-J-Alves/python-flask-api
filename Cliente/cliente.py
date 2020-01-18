@@ -12,30 +12,26 @@ header = {
 
 def Main():
     while True:
+        print("")
         print("Digite 'Control + C' para sair do programa")
         print("")
         PrintMenu()
         escolha = input("Escolha: ")
         if escolha == "1":
             getItems()
-            break
         elif escolha == "2":
             nome_item = input("Nome do item a recuperar: ")
             getItem(nome_item)
-            break
         elif escolha == "3":
             nome_item = input("Nome do item a enviar: ")
-            preco_item = float(input("Preco do item a enviar: "))
+            preco_item = input("Preco do item a enviar: ")
             postItem(nome_item, preco_item)
-            break
         elif escolha == "4":
             nome_item = input("Nome do item a deletar: ")
             deleteItem(nome_item)
-            break
         elif escolha == "5":
             nome_item = input("Nome do item a alterar/criar: ")
             putItem(nome_item)
-            break
         else:
             print("Escolha inválida")
             print("-"*50)
@@ -52,7 +48,7 @@ def PrintMenu():
 def getItems():
     # print("-"*50)
     print("[+] Para obtendo todos os items...")
-    url = 'http://127.0.0.1:5000/items/'
+    url = 'http://127.0.0.1:5000/items'
     try:
         requisicao = requests.get(url, headers=header)
     except Exception as err:
@@ -79,7 +75,10 @@ def getItem(nome_item):
 def postItem(nome_item, preco_item):
     print("[+] Enviando item...")
     url = 'http://127.0.0.1:5000/item/'+nome_item
-    data ={"preco" : preco_item}
+    if preco_item:
+        data ={"preco" : float(preco_item)}
+    else:
+        data ={"preco" : 00.00}
     try:
         requisicao = requests.post(url, data=json.dumps(data), headers=header)
     except Exception as err:

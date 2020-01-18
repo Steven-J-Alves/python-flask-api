@@ -23,7 +23,6 @@ class Item(Resource):
         return {'item': None}, 404
 
     def post(self, nome):
-
         data = Item.parser.parse_args()
 
         item = {'nome': nome, 'preco': data['preco']}
