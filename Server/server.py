@@ -1,13 +1,19 @@
-from flask import Flask
-from flask_restful import Resource, Api, reqparse
+'''*****************************************************
+*    Author: Steven Alves                              *
+*    Universidade: UniMindelo                          *
+*    UC: WebServices                                   *
+*    Git-Hub: https://github.com/xredocx215sevlanevets *
+*    Last-Update: 12/01/2020                           *
+*    Servidor: Python com Flask                        *
+*****************************************************'''
 
+from setupFlask import *
 
-app = Flask(__name__)
-api = Api(app)
-
+# Base Dados
 items = []
 
 
+# Classe que Representa todos um item
 class Item(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('preco',
@@ -30,6 +36,7 @@ class Item(Resource):
         return item, 201
 
 
+# Classe que Representa todos os items
 class ItemsList(Resource):
     def get(self):
         return {'items': items}
@@ -37,7 +44,6 @@ class ItemsList(Resource):
 
 # http://127.0.0.1:5000/estudante/steven
 api.add_resource(Item, '/item/<string:nome>')
+# http://127.0.0.1:5000/items
 api.add_resource(ItemsList, '/items')
-
-
 app.run(port=5000, debug=True)

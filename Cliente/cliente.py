@@ -1,15 +1,25 @@
 # coding=utf-8
+'''*****************************************************
+*    Author: Steven Alves                              *
+*    Universidade: UniMindelo                          *
+*    UC: WebServices                                   *
+*    Git-Hub: https://github.com/xredocx215sevlanevets *
+*    Last-Update: 12/01/2020                           *
+*    Cliente: Python3.7                                *
+*****************************************************'''
 
 import requests
 import json
 import sys
 
+# Cabeçalhos HTTP
 header = {
     'user-agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0",
     'Content-type': 'application/json'
 }
 
 
+# Programa Principal
 def Main():
     while True:
         print("")
@@ -37,6 +47,7 @@ def Main():
             print("-"*50)
 
 
+# Mostra as Opções de Menu
 def PrintMenu():
     print("1 - Para obter todos os items")
     print("2 - Para obter um item")
@@ -45,8 +56,8 @@ def PrintMenu():
     print("6 - Para Atualizar ou cria um item (se nao existir)")
 
 
+# Requisição GET
 def getItems():
-    # print("-"*50)
     print("[+] Para obtendo todos os items...")
     url = 'http://127.0.0.1:5000/items'
     try:
@@ -59,6 +70,7 @@ def getItems():
     print(requisicao_json)
 
 
+# Requisição GET
 def getItem(nome_item):
     print("[+] Obtendo item...")
     url = 'http://127.0.0.1:5000/item/'+nome_item
@@ -72,6 +84,7 @@ def getItem(nome_item):
     print(requisicao_json)
 
 
+# Requisição POST
 def postItem(nome_item, preco_item):
     print("[+] Enviando item...")
     url = 'http://127.0.0.1:5000/item/'+nome_item
@@ -89,12 +102,14 @@ def postItem(nome_item, preco_item):
     print(requisicao_json)
 
 
+# Requisição DEL
 def deleteItem(self):
     print("")
     print("[+] Deletando item...")
     pass
 
 
+# Requisição PUT
 def putItem(self):
     print("")
     print("[+] Alterando/criando item...")
