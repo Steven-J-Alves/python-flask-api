@@ -13,11 +13,12 @@ class Item(Resource):
         for item in items:
             if item['nome'] == nome:
                 return item
+        return {'item': None}, 404
 
     def post(self, nome):
         item = {'nome': nome, 'preco': 12.00}
         items.append(item)
-        return item
+        return item, 201
 
 
 # http://127.0.0.1:5000/estudante/steven
