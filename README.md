@@ -20,4 +20,4 @@ Rest API with Python and Flask
 
 3.0 Run Server e Cliente
     python server.py
-    python cliente.py
+    python3 cliente.py (ou pip install requests no venv e utlizar o venv para excutar tanto o server como o cliente)

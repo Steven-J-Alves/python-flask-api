@@ -30,7 +30,6 @@ class Item(Resource):
 
     def post(self, nome):
         data = Item.parser.parse_args()
-
         item = {'nome': nome, 'preco': data['preco']}
         items.append(item)
         return item, 201
@@ -46,4 +45,6 @@ class ItemsList(Resource):
 api.add_resource(Item, '/item/<string:nome>')
 # http://127.0.0.1:5000/items
 api.add_resource(ItemsList, '/items')
+
+
 app.run(port=5000, debug=True)
